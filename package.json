@@ -1,6 +1,6 @@
 {
   "name": "vpk",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "parser and extractor for the Valve Pack Format",
   "main": "index.js",
   "repository": {

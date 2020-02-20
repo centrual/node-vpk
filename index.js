@@ -116,6 +116,7 @@ class VPK {
         let header = new Buffer(HEADER_2_LENGTH);
         let directoryFile = fs.openSync(this.directoryPath, 'r');
         fs.readSync(directoryFile, header, 0, HEADER_2_LENGTH, 0);
+        fs.closeSync(directoryFile);
         let binary = new jBinary(header, TYPESET);
 
         try {
@@ -151,6 +152,7 @@ class VPK {
         if (entry.preloadBytes > 0) {
             let directoryFile = fs.openSync(this.directoryPath, 'r');
             fs.readSync(directoryFile, file, 0, entry.preloadBytes, entry.preloadOffset);
+            fs.closeSync(directoryFile);
         }
 
         if (entry.entryLength > 0) {
@@ -166,6 +168,7 @@ class VPK {
 
                 let directoryFile = fs.openSync(this.directoryPath, 'r');
                 fs.readSync(directoryFile, file, entry.preloadBytes, entry.entryLength, offset + entry.entryOffset);
+                fs.closeSync(directoryFile);
             }
             else {
                 let fileIndex = ('000' + entry.archiveIndex).slice(-3);
@@ -173,6 +176,7 @@ class VPK {
 
                 let archiveFile = fs.openSync(archivePath, 'r');
                 fs.readSync(archiveFile, file, entry.preloadBytes, entry.entryLength, entry.entryOffset);
+                fs.closeSync(archiveFile);
             }
         }
 
